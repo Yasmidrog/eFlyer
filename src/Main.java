@@ -103,8 +103,14 @@ public class Main
     {
         try
         {
+            String str;
+            try {
+                str = args[0];
+            }catch (Exception ignored){
+                str="/dev/ttyUSB0";
+            }
             setNatives();
-            (new Main()).connect("COM3");
+            (new Main()).connect(str);
         }
         catch ( Exception e )
         {
