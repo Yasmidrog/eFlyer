@@ -19,9 +19,7 @@ public class Main
     {
         System.out.print(portName+"\n");
         Enumeration<String> a=CommPortIdentifier.getPortIdentifiers();
-        System.out.print(a.hasMoreElements());
         while(a.hasMoreElements()){
-            System.out.print("Next:");
             System.out.print(a.nextElement());
         }
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
