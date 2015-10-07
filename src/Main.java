@@ -16,6 +16,7 @@ public class Main
 
     void connect ( String portName ) throws Exception
     {
+        System.out.print(portName);
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if ( portIdentifier.isCurrentlyOwned() )
         {
@@ -35,7 +36,6 @@ public class Main
 
                 (new Thread(new SerialReader(in))).start();
                 (new Thread(new SerialWriter(out))).start();
-
             }
             else
             {
@@ -110,6 +110,7 @@ public class Main
                 str="/dev/ttyUSB0";
             }
             setNatives();
+
             (new Main()).connect(str);
         }
         catch ( Exception e )
