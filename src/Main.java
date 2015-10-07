@@ -16,7 +16,7 @@ public class Main
 
     void connect ( String portName ) throws Exception
     {
-        System.out.print(portName);
+        System.out.print(portName+"\n");
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if ( portIdentifier.isCurrentlyOwned() )
         {
