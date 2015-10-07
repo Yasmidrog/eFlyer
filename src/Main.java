@@ -6,6 +6,7 @@ import gnu.io.SerialPort;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Enumeration;
 
 public class Main
 {
@@ -17,6 +18,10 @@ public class Main
     void connect ( String portName ) throws Exception
     {
         System.out.print(portName+"\n");
+        Enumeration<String> a=CommPortIdentifier.getPortIdentifiers();
+        while(a.hasMoreElements()){
+            System.out.print(a.nextElement());
+        }
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if ( portIdentifier.isCurrentlyOwned() )
         {
