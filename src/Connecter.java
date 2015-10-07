@@ -145,7 +145,7 @@ public class Connecter
     private static void setNatives() {
         //set path to the natives
         try {
-            System.setProperty("java.library.path", new File("lib/rtxt/Linux").getAbsolutePath());
+            System.setProperty("java.library.path", new File("libs/rtxt/Linux").getAbsolutePath());
             java.lang.reflect.Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
 
             fieldSysPath.setAccessible(true);
