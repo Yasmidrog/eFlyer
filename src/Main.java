@@ -1,6 +1,7 @@
 import java.io.File;
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
+import gnu.io.RXTXCommDriver;
 import gnu.io.SerialPort;
 
 import java.io.IOException;
@@ -18,9 +19,23 @@ public class Main
     void connect ( String portName ) throws Exception
     {
         System.out.print(portName+"\n");
-        Enumeration<String> a=CommPortIdentifier.getPortIdentifiers();
-        while(a.hasMoreElements()){
-            System.out.print(a.nextElement());
+
+        Enumeration ports = CommPortIdentifier.getPortIdentifiers();
+        while (ports.hasMoreElements()) {
+            CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
+            String type;
+            switch (port.getPortType()) {
+                case CommPortIdentifier.PORT_PARALLEL:
+                    type = "Parallel";
+                    break;
+                case CommPortIdentifier.PORT_SERIAL:
+                    type = "Serial";
+                    break;
+                default: /// Shouldn't happen
+                    type = "Unknown";
+                    break;
+            }
+            System.out.println(port.getName() + ": " + type);
         }
         CommPortIdentifier portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
         if ( portIdentifier.isCurrentlyOwned() )
