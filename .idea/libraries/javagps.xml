@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="javagps">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/javagpsdist/javagps.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/javagpsdist/javagps.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
