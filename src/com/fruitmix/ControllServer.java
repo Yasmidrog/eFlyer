@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
 import java.io.File;
-import java.net.Socket;
+
 
 /**
  * Created by yasmidrog on 19.10.15.
@@ -52,7 +52,6 @@ public class ControllServer{
         t.stop();
     }
     private static void setNatives() {
-        //set path to the natives
         try {
             System.setProperty("java.library.path", new File("libs/rtxt/Linux").getAbsolutePath());
             java.lang.reflect.Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");

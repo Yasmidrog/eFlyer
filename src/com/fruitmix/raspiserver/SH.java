@@ -1,7 +1,10 @@
 package com.fruitmix.raspiserver;
 import com.fruitmix.ControllServer;
+import com.fruitmix.raspiconnect.RaspiController;
 import org.sparkle.janette.server.ServerHandler;
 import org.sparkle.jbind.JBinD;
+import org.sparkle.jcfg.Writer;
+import org.sparkle.jcfg.JCFG;
 
 
 /**
@@ -11,9 +14,9 @@ public class SH extends ServerHandler {
     public SH() {
     }
     public void in(JBinD data){
-        String s= data.getPart("sensors").getDataAsString();
-        System.out.println(s);
-        ControllServer.result.setText(s);
+        JCFG s= data.getPart("sensors").getDataAsJCFG();
+        ControllServer.result.setText(Writer.writeToString(s));
+        RaspiController.addCfg(s);
     }
     public JBinD out(){return new JBinD();}
 }

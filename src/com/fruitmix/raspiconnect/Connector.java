@@ -12,9 +12,11 @@ import gnu.io.SerialPortEventListener;
 public class Connector implements SerialPortEventListener {
     SerialPort serialPort;
 
-    private BufferedReader input;
+    protected byte[] bytes;
 
-    private OutputStream output;
+    protected BufferedReader input;
+
+    protected OutputStream output;
     /**
      * Milliseconds to block while waiting for port open
      */
@@ -70,13 +72,17 @@ public class Connector implements SerialPortEventListener {
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
-                String inputLine = input.readLine();
-                System.out.println(inputLine);
+                if(bytes.length>0){
+                        output.write(bytes);
+                        bytes=new byte[]{};
+                    }
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
         }
 
     }
-
+   public void setCommand(byte[] b){
+       bytes=b;
+   }
 }
