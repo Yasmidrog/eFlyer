@@ -13,12 +13,12 @@ import java.sql.Time;
  */
 public class RaspiController {
 
-    private static Queue<JCFG> commands=new Queue<JCFG>();
-    private static Connector con=new Connector();
-    public static void addCfg(JCFG conf){
+    private  Queue<JCFG> commands;
+    private  Connector con;
+    public  void addCfg(JCFG conf){
         commands.enqueue(conf);
     }
-    private static  Timer control=new Timer(100, new ActionListener() {
+    private   Timer control=new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -33,15 +33,17 @@ public class RaspiController {
         }
     });
     public RaspiController(){
+        commands=new Queue<JCFG>();
+        con=new Connector();
         control.start();
     }
-    public static  void stopControl(){
+    public  void stopControl(){
         control.stop();
     }
-    public static void startControl(){
+    public  void startControl(){
         control.start();
     }
-    private static byte[] createCommand(JCFG cfg){
+    private byte[] createCommand(JCFG cfg){
         //trying to create command to send to a raspi
         return "Test".getBytes();
     }

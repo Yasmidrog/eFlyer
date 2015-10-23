@@ -16,6 +16,7 @@ import java.io.File;
  * Created by yasmidrog on 19.10.15.
  */
 public class ControllServer{
+    public static RaspiController raspicont;
     public static JFrame frame=new JFrame();
     static JButton open=new JButton("Open"), close=new JButton("Close");
     public static JLabel l=new JLabel();
@@ -23,6 +24,7 @@ public class ControllServer{
     public static void main(String[] args) {
         setNatives();
         setGraphics();
+        raspicont=new RaspiController();
     }
     static ServerConnection cc;
     static Thread t= new Thread() {
