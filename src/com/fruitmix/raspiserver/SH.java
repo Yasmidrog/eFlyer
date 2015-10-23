@@ -16,7 +16,6 @@ public class SH extends ServerHandler {
     public void in(JBinD data){
         JCFG s= data.getPart("sensors").getDataAsJCFG();
         ControllServer.result.setText(Writer.writeToString(s));
-        RaspiController.addCfg(s);
     }
     public JBinD out(){return new JBinD();}
 }
