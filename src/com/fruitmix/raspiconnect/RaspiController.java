@@ -1,6 +1,8 @@
 package com.fruitmix.raspiconnect;
 
+import com.fruitmix.ControllServer;
 import org.sparkle.jcfg.JCFG;
+import org.sparkle.jcfg.Writer;
 import sun.misc.Queue;
 
 import javax.swing.*;
@@ -24,6 +26,7 @@ public class RaspiController {
             try {
                 if(!commands.isEmpty()) {
                     JCFG cfg = commands.dequeue();
+                    ControllServer.result.setText(Writer.writeToString(cfg));
                     con.setCommand(createCommand(cfg));
                 }
             }catch (Exception ex){

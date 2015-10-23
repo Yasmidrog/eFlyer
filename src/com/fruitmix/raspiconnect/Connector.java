@@ -72,7 +72,6 @@ public class Connector implements SerialPortEventListener {
 
 
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-
         if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
             try {
                 System.out.println(input.readLine());
