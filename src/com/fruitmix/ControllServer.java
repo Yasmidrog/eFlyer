@@ -31,10 +31,11 @@ public class ControllServer{
                 cc=new ServerConnection(1592, SH.class,200);
                 cc.open();
                 RaspiController.startControl();
-                System.out.println("Started");
+
             }catch (Exception e){
                 e.printStackTrace();
             }
+            System.out.println("Started");
         }
 
     };
