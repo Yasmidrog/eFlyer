@@ -30,8 +30,6 @@ public class ControllServer{
             try {
                 cc=new ServerConnection(1592, SH.class,200);
                 cc.open();
-
-
             }catch (Exception e){
                 e.printStackTrace();
             }
