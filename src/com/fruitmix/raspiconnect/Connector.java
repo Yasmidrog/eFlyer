@@ -12,7 +12,7 @@ import gnu.io.SerialPortEventListener;
 public class Connector implements SerialPortEventListener {
     SerialPort serialPort;
 
-    protected byte[] bytes;
+    protected byte[] bytes=new byte[]{};
 
     protected BufferedReader input;
 
@@ -80,7 +80,7 @@ public class Connector implements SerialPortEventListener {
                     }
                 System.out.println(input.readLine());
             } catch (Exception e) {
-                System.err.println(e.toString());
+              e.printStackTrace();
             }
         }
 
