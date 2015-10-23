@@ -20,15 +20,9 @@ public class ControllServer{
     static JButton open=new JButton("Open"), close=new JButton("Close");
     public static JLabel l=new JLabel();
     public static JTextArea result=new JTextArea();
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         setNatives();
-        /*
-        Connector main = new Connector();
-        main.initialize();
-        */
         setGraphics();
-
-
     }
     static ServerConnection cc;
     static Thread t= new Thread() {
