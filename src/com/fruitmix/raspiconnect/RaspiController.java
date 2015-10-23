@@ -24,6 +24,7 @@ public class RaspiController {
             try {
                 if(!commands.isEmpty()) {
                     JCFG cfg = commands.dequeue();
+                    con.setCommand(createCommand(cfg));
                 }
             }catch (Exception ex){
                 ex.printStackTrace();
