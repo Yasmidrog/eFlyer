@@ -22,9 +22,13 @@ public class ControllServer{
     public static JLabel l=new JLabel();
     public static JTextArea result=new JTextArea();
     public static void main(String[] args) {
-        setNatives();
-        setGraphics();
-        raspicont=new RaspiController();
+        try {
+            setNatives();
+            setGraphics();
+            raspicont = new RaspiController();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
     static ServerConnection cc;
     static Thread t= new Thread() {
