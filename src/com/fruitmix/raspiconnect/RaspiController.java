@@ -23,9 +23,7 @@ public class RaspiController {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(!commands.isEmpty()) {
-                    System.out.print("Command\n");
                     JCFG cfg = commands.dequeue();
-
                 }
             }catch (Exception ex){
                 ex.printStackTrace();
@@ -35,7 +33,7 @@ public class RaspiController {
     public RaspiController(){
         try {
             commands = new Queue<JCFG>();
-
+            con=new Connector();
             control.start();
         }catch (Exception ex){
             ex.printStackTrace();
