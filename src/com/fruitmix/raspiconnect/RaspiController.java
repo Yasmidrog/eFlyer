@@ -23,6 +23,7 @@ public class RaspiController {
         public void actionPerformed(ActionEvent e) {
             try {
                 if(!commands.isEmpty()) {
+                    System.out.print("Command\n");
                     JCFG cfg = commands.dequeue();
                     con.setCommand(createCommand(cfg));
                 }

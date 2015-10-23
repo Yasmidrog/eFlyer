@@ -1,5 +1,6 @@
 package com.fruitmix;
 
+import com.fruitmix.raspiconnect.RaspiController;
 import com.fruitmix.raspiserver.SH;
 import org.sparkle.janette.server.ServerConnection;
 
@@ -35,6 +36,7 @@ public class ControllServer{
             try {
                 cc=new ServerConnection(1592, SH.class,200);
                 cc.open();
+                RaspiController.startControl();
                 System.out.println("Started");
             }catch (Exception e){
                 e.printStackTrace();
