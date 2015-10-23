@@ -30,11 +30,11 @@ public class Connector implements SerialPortEventListener {
     }
     public void initialize() {
 
-        System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM0");
+        System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM1");
 
         CommPortIdentifier portId = null;
         try {
-            portId = CommPortIdentifier.getPortIdentifier("/dev/ttyACM0");
+            portId = CommPortIdentifier.getPortIdentifier("/dev/ttyACM1");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,7 +81,6 @@ public class Connector implements SerialPortEventListener {
                         output.write(bytes);
                         bytes=new byte[]{};
                 }
-
         }
         } catch (Exception e) {
             e.printStackTrace();
