@@ -25,7 +25,7 @@ public class ControllServer{
         try {
             setNatives();
             setGraphics();
-
+            raspicont = new RaspiController();
         }catch (Exception ex){
             ex.printStackTrace();
         }
