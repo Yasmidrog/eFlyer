@@ -78,6 +78,7 @@ public class Connector implements SerialPortEventListener {
                         output.write(bytes);
                         bytes=new byte[]{};
                     }
+                System.out.println(input.readLine());
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
