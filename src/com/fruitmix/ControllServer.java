@@ -37,7 +37,7 @@ public class ControllServer{
 
 
     private static void start(){
-
+        started=true;
         t= new Thread() {
             public void run() {
                 try {
