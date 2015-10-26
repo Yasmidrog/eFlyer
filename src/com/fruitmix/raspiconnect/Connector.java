@@ -69,8 +69,14 @@ public class Connector implements SerialPortEventListener {
 
 
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-        System.out.println("----");
         try {
+
+            if(bytes.length>0){
+                output.write(bytes);
+                bytes=new byte[]{};
+            }else{
+                output.write("Empty".getBytes());
+            }
             System.out.println(input.readLine());
         } catch (Exception e) {
             e.printStackTrace();
