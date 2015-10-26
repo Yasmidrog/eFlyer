@@ -37,7 +37,13 @@ public class RaspiController {
     public RaspiController(){
         try {
             commands = new Queue<JCFG>();
-            con=new Connector();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    con=new Connector();
+                    con.initialize();
+                }
+            }).start();
             control.start();
         }catch (Exception ex){
             ex.printStackTrace();
