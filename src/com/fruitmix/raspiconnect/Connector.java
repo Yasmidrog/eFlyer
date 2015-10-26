@@ -1,11 +1,12 @@
-package com.fruitmix.raspiconnect;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
-import gnu.io.SerialPortEvent;
-import gnu.io.SerialPortEventListener;
+
+        package com.fruitmix.raspiconnect;
+        import java.io.BufferedReader;
+        import java.io.InputStreamReader;
+        import java.io.OutputStream;
+        import gnu.io.CommPortIdentifier;
+        import gnu.io.SerialPort;
+        import gnu.io.SerialPortEvent;
+        import gnu.io.SerialPortEventListener;
 
 
 
@@ -70,20 +71,17 @@ public class Connector implements SerialPortEventListener {
 
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         try {
-
+            System.out.println(input.readLine());
             if(bytes.length>0){
                 output.write(bytes);
                 bytes=new byte[]{};
-            }else{
-                output.write("Empty".getBytes());
             }
-            System.out.println(input.readLine());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-   public void setCommand(byte[] b){
-       bytes=b;
-   }
+    public void setCommand(byte[] b){
+        bytes=b;
+    }
 }

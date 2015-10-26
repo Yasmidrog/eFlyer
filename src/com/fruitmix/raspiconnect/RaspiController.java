@@ -15,51 +15,53 @@ import java.awt.event.ActionListener;
  */
 public class RaspiController {
 
-    private  Queue<JCFG> commands;
-    private  Connector con;
-    public  void addCfg(JCFG conf){
+    private Queue<JCFG> commands;
+    private Connector con;
+
+    public void addCfg(JCFG conf) {
         commands.enqueue(conf);
     }
-    private   Timer control=new Timer(100, new ActionListener() {
+
+    private Timer control = new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                if(!commands.isEmpty()) {
+                if (!commands.isEmpty()) {
                     JCFG cfg = commands.dequeue();
                     ControllServer.result.setText(Writer.writeToString(cfg));
                     con.setCommand(createCommand(cfg));
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
     });
-    private Thread conThread;
-    public RaspiController(final String port){
+
+    public RaspiController(final String port) {
         try {
             commands = new Queue<JCFG>();
-            conThread=new Thread(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    con=new Connector();
+                    con = new Connector();
                     con.initialize(port);
                 }
-            });
-            conThread.start();
+            }).start();
             control.start();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    public  void stopControl(){
+
+    public void stopControl() {
         control.stop();
-        con.close();
-        conThread.stop();
     }
-    public  void startControl(){
+
+    public void startControl() {
         control.start();
     }
-    private byte[] createCommand(JCFG cfg){
+
+    private byte[] createCommand(JCFG cfg) {
         //trying to create command to send to a raspi
         return "Test".getBytes();
     }
