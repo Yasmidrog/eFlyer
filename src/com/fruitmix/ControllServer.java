@@ -53,7 +53,7 @@ public class ControllServer{
     private static void finish(){
         cc.close();
         t.stop();
-        raspicont.stopControl();
+
     }
     private static void setNatives() {
         try {
