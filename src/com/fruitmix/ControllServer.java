@@ -37,6 +37,7 @@ public class ControllServer{
 
 
     private static void start(){
+        finish();
         started=true;
         t= new Thread() {
             public void run() {
@@ -60,7 +61,6 @@ public class ControllServer{
             raspicont.stopControl();
         }
         started = false;
-
     }
     private static void setNatives() {
         try {
