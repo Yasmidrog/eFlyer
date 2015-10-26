@@ -34,16 +34,18 @@ public class RaspiController {
             }
         }
     });
+    private Thread conThread;
     public RaspiController(final String port){
         try {
             commands = new Queue<JCFG>();
-            new Thread(new Runnable() {
+            conThread=new Thread(new Runnable() {
                 @Override
                 public void run() {
                     con=new Connector();
                     con.initialize(port);
                 }
-            }).start();
+            });
+            conThread.start();
             control.start();
         }catch (Exception ex){
             ex.printStackTrace();
@@ -51,6 +53,8 @@ public class RaspiController {
     }
     public  void stopControl(){
         control.stop();
+        con.close();
+        conThread.stop();
     }
     public  void startControl(){
         control.start();
