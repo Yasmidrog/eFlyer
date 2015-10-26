@@ -32,28 +32,29 @@ public class ControllServer{
         }
     }
     static ServerConnection cc;
-    static Thread t= new Thread() {
-        public void run() {
-            try {
-                cc=new ServerConnection(1592, SH.class,200);
-                cc.open();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            System.out.println("Started");
-        }
-
-    };
+    static Thread t;
 
 
     private static void start(){
+        t= new Thread() {
+            public void run() {
+                try {
+                    cc=new ServerConnection(1592, SH.class,200);
+                    cc.open();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                System.out.println("Started");
+            }
+
+        };
         raspicont = new RaspiController(port.getText());
         t.start();
     }
     private static void finish(){
         cc.close();
         t.stop();
-
+        raspicont.stopControl();
     }
     private static void setNatives() {
         try {
@@ -96,7 +97,7 @@ public class ControllServer{
         frame.addWindowStateListener(new WindowStateListener() {
             @Override
             public void windowStateChanged(WindowEvent e) {
-                if(e.getNewState()==WindowEvent.WINDOW_CLOSED);
+                if (e.getNewState() == WindowEvent.WINDOW_CLOSED) ;
                 finish();
             }
         });
