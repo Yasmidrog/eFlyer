@@ -25,13 +25,13 @@ public class Connector implements SerialPortEventListener {
      * Default bits per second for COM port.
      */
     private static final int DATA_RATE = 9600;
-    public void initialize() {
+    public void initialize(String port) {
 
-        System.setProperty("gnu.io.rxtx.SerialPorts", "/dev/ttyACM1");
+        System.setProperty("gnu.io.rxtx.SerialPorts", port);
 
         CommPortIdentifier portId = null;
         try {
-            portId = CommPortIdentifier.getPortIdentifier("/dev/ttyACM1");
+            portId = CommPortIdentifier.getPortIdentifier(port);
 
         } catch (Exception e) {
             e.printStackTrace();

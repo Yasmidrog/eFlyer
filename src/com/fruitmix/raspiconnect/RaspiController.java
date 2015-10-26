@@ -34,14 +34,14 @@ public class RaspiController {
             }
         }
     });
-    public RaspiController(){
+    public RaspiController(final String port){
         try {
             commands = new Queue<JCFG>();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     con=new Connector();
-                    con.initialize();
+                    con.initialize(port);
                 }
             }).start();
             control.start();

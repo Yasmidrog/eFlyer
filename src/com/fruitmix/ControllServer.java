@@ -21,11 +21,12 @@ public class ControllServer{
     static JButton open=new JButton("Open"), close=new JButton("Close");
     public static JLabel l=new JLabel();
     public static JTextArea result=new JTextArea();
+    public static JTextField port=new JTextField();
     public static void main(String[] args) {
         try {
             setNatives();
             setGraphics();
-            raspicont = new RaspiController();
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
@@ -46,6 +47,7 @@ public class ControllServer{
 
 
     private static void start(){
+        raspicont = new RaspiController(port.getText());
         t.start();
     }
     private static void finish(){
@@ -73,7 +75,9 @@ public class ControllServer{
         frame.setBounds(100,100,450,150);
         open.setBounds(1,40,70,25);
         close.setBounds(1,71,70,25);
-        result.setBounds(75,1,365,130);
+        result.setBounds(95,1,350,130);
+        port.setBounds(1,98,95,25);
+        port.setText("/dev/ttyACM0");
         open.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -98,6 +102,7 @@ public class ControllServer{
         frame.add(close);
         frame.add(open);
         frame.add(result);
+        frame.add(port);
         frame.add(l);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
