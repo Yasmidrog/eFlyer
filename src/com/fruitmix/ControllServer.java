@@ -15,49 +15,53 @@ import java.io.File;
 /**
  * Created by yasmidrog on 19.10.15.
  */
-public class ControllServer {
+public class ControllServer{
+    private static  boolean started=false;
     public static RaspiController raspicont;
-    public static JFrame frame = new JFrame();
-    static JButton open = new JButton("Open"), close = new JButton("Close");
-    public static JLabel l = new JLabel();
-    public static JTextArea result = new JTextArea();
-    public static JTextField port = new JTextField();
-
+    public static JFrame frame=new JFrame();
+    static JButton open=new JButton("Open"), close=new JButton("Close");
+    public static JLabel l=new JLabel();
+    public static JTextArea result=new JTextArea();
+    public static JTextField port=new JTextField();
     public static void main(String[] args) {
         try {
             setNatives();
             setGraphics();
 
-        } catch (Exception ex) {
+        }catch (Exception ex){
             ex.printStackTrace();
         }
     }
-
     static ServerConnection cc;
-    static Thread t = new Thread() {
-        public void run() {
-            try {
-                cc = new ServerConnection(1592, SH.class, 200);
-                cc.open();
-            } catch (Exception e) {
-                e.printStackTrace();
+    static Thread t;
+
+
+    private static void start(){
+
+        t= new Thread() {
+            public void run() {
+                try {
+                    cc=new ServerConnection(1592, SH.class,200);
+                    cc.open();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                System.out.println("Started");
             }
-            System.out.println("Started");
-        }
 
-    };
-
-
-    private static void start() {
+        };
         raspicont = new RaspiController(port.getText());
         t.start();
     }
-
     private static void finish() {
-        cc.close();
-        t.stop();
-    }
+        if (started) {
+            cc.close();
+            t.stop();
+            raspicont.stopControl();
+        }
+        started = false;
 
+    }
     private static void setNatives() {
         try {
             System.setProperty("java.library.path", new File("libs/rtxt/Linux").getAbsolutePath());
@@ -75,13 +79,12 @@ public class ControllServer {
             System.exit(1);
         }
     }
-
-    private static void setGraphics() {
-        frame.setBounds(100, 100, 450, 150);
-        open.setBounds(1, 40, 70, 25);
-        close.setBounds(1, 71, 70, 25);
-        result.setBounds(95, 1, 350, 130);
-        port.setBounds(1, 98, 95, 25);
+    private static void setGraphics(){
+        frame.setBounds(100,100,450,150);
+        open.setBounds(1,40,70,25);
+        close.setBounds(1,71,70,25);
+        result.setBounds(95,1,350,130);
+        port.setBounds(1,98,95,25);
         port.setText("/dev/ttyACM0");
         open.addMouseListener(new MouseAdapter() {
             @Override
@@ -113,3 +116,4 @@ public class ControllServer {
         frame.setVisible(true);
     }
 }
+
