@@ -16,6 +16,7 @@ import java.io.File;
  * Created by yasmidrog on 19.10.15.
  */
 public class ControllServer{
+    private static  boolean started=false;
     public static RaspiController raspicont;
     public static JFrame frame=new JFrame();
     static JButton open=new JButton("Open"), close=new JButton("Close");
@@ -52,10 +53,14 @@ public class ControllServer{
         raspicont = new RaspiController(port.getText());
         t.start();
     }
-    private static void finish(){
-        cc.close();
-        t.stop();
-        raspicont.stopControl();
+    private static void finish() {
+        if (started) {
+            cc.close();
+            t.stop();
+            raspicont.stopControl();
+        }
+        started = false;
+
     }
     private static void setNatives() {
         try {
