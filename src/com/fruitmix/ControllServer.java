@@ -16,9 +16,10 @@ import java.io.File;
  * Created by yasmidrog on 19.10.15.
  */
 public class ControllServer{
+    private static ServerConnection server;
     private static  boolean started=false;
     public static RaspiController raspicont;
-    public static JFrame frame=new JFrame();
+    public static JFrame frame=new JFrame("eFlyer Control Server");
     static JButton open=new JButton("Open"), close=new JButton("Close");
     public static JLabel l=new JLabel();
     public static JTextArea result=new JTextArea();
@@ -27,37 +28,27 @@ public class ControllServer{
         try {
             setNatives();
             setGraphics();
-
+            server = new ServerConnection(1592, SH.class, 200);
         }catch (Exception ex){
             ex.printStackTrace();
         }
     }
-    static ServerConnection cc;
-    static Thread t;
-
 
     private static void start(){
-        finish();
-        started=true;
-        t= new Thread() {
-            public void run() {
-                try {
-                    cc=new ServerConnection(1592, SH.class,200);
-                    cc.open();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                System.out.println("Started");
-            }
+      finish();
+      started=true;
+      try {
+          server.startServer();
+          raspicont = new RaspiController(port.getText());
+      }catch (Exception e) {
+         e.printStackTrace();
+      }
+        System.out.println("Started");
 
-        };
-        raspicont = new RaspiController(port.getText());
-        t.start();
     }
     private static void finish() {
         if (started) {
-            cc.close();
-            t.stop();
+            server.close();
             raspicont.stopControl();
         }
         started = false;
@@ -80,11 +71,11 @@ public class ControllServer{
         }
     }
     private static void setGraphics(){
-        frame.setBounds(100,100,450,150);
-        open.setBounds(1,40,70,25);
-        close.setBounds(1,71,70,25);
-        result.setBounds(95,1,350,130);
-        port.setBounds(1,98,95,25);
+        frame.setBounds(100,100,475,160);
+        open.setBounds(1,40,90,25);
+        close.setBounds(1,71,90,25);
+        result.setBounds(95,1,370,130);
+        port.setBounds(1,107,93,25);
         port.setText("/dev/ttyACM0");
         open.addMouseListener(new MouseAdapter() {
             @Override

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="eFlyer:jar">
+    <output-path>$PROJECT_DIR$/</output-path>
+    <root id="archive" name="eFlyer.jar">
+      <element id="module-output" name="eFlyer" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/rtxt/RXTXcomm.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/javagpsdist/javagps.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

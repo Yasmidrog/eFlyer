@@ -30,7 +30,6 @@ public final class ServerConnection {
             try {
                 this.client = client;
                 serverhandler = (ServerHandler) handler.newInstance();
-                System.out.print("ddd");
                 get.start();
             } catch (InstantiationException ex) {
                 Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,12 +68,11 @@ public final class ServerConnection {
 
             @Override
             public void run() {
-                InputStream inputStream = null;
+                InputStream inputStream;
                 try {
                     inputStream = client.getInputStream();
                     DataInputStream dis = new DataInputStream(inputStream);
                     while (true) {
-
                         int length = dis.readInt();
                         if (length <= 0) {
                             System.out.println("Got empty message...");
@@ -103,7 +101,6 @@ public final class ServerConnection {
         public void close() {
             get.stop();
         }
-
     }
 
     private ArrayList<clientConnection> connections = new ArrayList<clientConnection>();
@@ -113,11 +110,9 @@ public final class ServerConnection {
     int sendingDelay = 350;
 
     public ServerConnection(int port, Class handler, int sendingDelay) {
-
         this.port = port;
         this.handler = handler;
         this.sendingDelay = sendingDelay;
-
     }
 
     @Override
@@ -127,47 +122,61 @@ public final class ServerConnection {
 
     public void close() {
         try{
-        timer.cancel();
-        timer.purge();
+            socket.close();
             newClients.stop();
+            timer.cancel();
+            timer.purge();
         } catch (Exception e) {
+            e.printStackTrace();
         }
         for (clientConnection c : connections) {
             c.close();
         }
     }
 
-    Thread newClients = new Thread() {
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    Socket client = socket.accept();
-                    connections.add(new clientConnection(client));
-                } catch (IOException ex) {
-                    Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    };
+    Thread newClients;
     ServerSocket socket;
 
-    public void open() throws IOException {
+    public void startServer() throws IOException {
         socket = new ServerSocket(port);
-        newClients.start();
         startTimer();
+        System.gc();
     }
     private void startTimer(){
+        newClients= new Thread() {
+            @Override
+            public void run() {
+                acceptClients();
+            }
+        };
+        timer=new Timer();
         timer.schedule( new TimerTask() {
             public void run() {
-                try {
-                    for (clientConnection c : connections) {
-                        c.send();
-                    }
-                } catch (Exception ex) {
-
-                }
+              sendToClients();
             }
         },0, sendingDelay);
+        newClients.start();
+    }
+    private void acceptClients(){
+        while (true) {
+            try {
+                Socket client = socket.accept();
+                connections.add(new clientConnection(client));
+            } catch (IOException ex) {
+                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally {
+
+            }
+        }
+    }
+    private void sendToClients(){
+        try {
+            for (clientConnection c : connections) {
+                c.send();
+            }
+        } catch (Exception ex) {
+             ex.printStackTrace();
+        }
     }
 }
