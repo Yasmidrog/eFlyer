@@ -56,9 +56,6 @@ public class RaspiController {
         con.close();
         conThread.stop();
     }
-    public  void startControl(){
-        control.start();
-    }
     private byte[] createCommand(JCFG cfg){
         //trying to create command to send to a raspi
         return "Test".getBytes();
