@@ -4,6 +4,7 @@ import org.sparkle.jbind.JBinD;
 import org.sparkle.jbind.Reader;
 import org.sparkle.jbind.Writer;
 
+import java.net.SocketException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,8 +31,10 @@ public final class ClientConnection {
             if(b==null)return;
             byte[] bytes = Writer.write(b);
             DataOutputStream dos = new DataOutputStream(client.getOutputStream());
-            dos.writeInt(bytes.length);
-            dos.write(bytes, 0, bytes.length);
+            try {
+                dos.writeInt(bytes.length);
+                dos.write(bytes, 0, bytes.length);
+            } catch (SocketException ignored){}
         } catch (IOException ex) {
             Logger.getLogger(ClientConnection.class.getName()).log(Level.SEVERE, null, ex);
         }

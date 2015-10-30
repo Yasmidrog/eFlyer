@@ -28,7 +28,7 @@ public class ControllServer{
         try {
             setNatives();
             setGraphics();
-            server = new ServerConnection(1592, SH.class, 200);
+            server = new ServerConnection(1592, SH.class, 150);
         }catch (Exception ex){
             ex.printStackTrace();
         }

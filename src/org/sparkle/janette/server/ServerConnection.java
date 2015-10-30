@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,9 +51,12 @@ public final class ServerConnection {
                     return;
                 }
                 DataOutputStream dos = new DataOutputStream(client.getOutputStream());
-                dos.writeInt(bytes.length);
-                dos.write(bytes, 0, bytes.length);
-            } catch (IOException ex) {
+                try {
+                    dos.writeInt(bytes.length);
+                    dos.write(bytes, 0, bytes.length);
+                } catch (SocketException ignored){}
+            }
+                catch(IOException ex) {
                 Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
                 try {
                     client.close();
@@ -83,7 +87,8 @@ public final class ServerConnection {
                         JBinD bind = Reader.read(message);
                         serverhandler.in(bind);
                     }
-                } catch (IOException ex) {
+                }catch (SocketException ignored){}
+                catch (IOException ex) {
                     Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
                     remove();
                     get.stop();
