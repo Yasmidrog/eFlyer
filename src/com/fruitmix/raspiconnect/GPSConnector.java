@@ -15,7 +15,8 @@ public class GPSConnector extends Connector {
                 String gps= input.readLine();
                 if(gps.contains("$GPGLL")){
                     String[] need = gps.split(",");
-                    double n = Double.parseDouble(need[1])/100, e = Double.parseDouble(need[3])/100,
+                    double n = Double.parseDouble(need[1])/100,
+                            e = Double.parseDouble(need[3])/100,
                             a = Double.parseDouble(need[5])/1000;
                     String.format("%.2f",1.12);
                     gpsData.set("Latitude", round(n,2) + "N");
