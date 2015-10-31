@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 public class RaspiController {
 
     private  Queue<JCFG> commands;
-    private  Connector con;
+    private  ArduinoConnector con;
     public  void addCfg(JCFG conf){
         commands.enqueue(conf);
     }
@@ -41,7 +41,7 @@ public class RaspiController {
             conThread=new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    con=new Connector();
+                    con=new ArduinoConnector();
                     con.initialize(port);
                 }
             });

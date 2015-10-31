@@ -12,19 +12,17 @@ import gnu.io.SerialPortEventListener;
 public class Connector implements SerialPortEventListener {
     SerialPort serialPort;
 
-    protected byte[] bytes=new byte[]{};
-
     protected BufferedReader input;
 
     protected OutputStream output;
     /**
      * Milliseconds to block while waiting for port open
      */
-    private static final int TIME_OUT = 2000;
+    protected static int TIME_OUT;
     /**
      * Default bits per second for COM port.
      */
-    private static final int DATA_RATE = 9600;
+    private static  int DATA_RATE;
     public void initialize(String port) {
 
         System.setProperty("gnu.io.rxtx.SerialPorts", port);
@@ -69,19 +67,6 @@ public class Connector implements SerialPortEventListener {
 
 
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-
-        System.out.println("----");
-        try {
-            if(oEvent.getEventType()==SerialPortEvent.DATA_AVAILABLE)
-                System.out.println(input.readLine());
-            if(oEvent.getEventType()==SerialPortEvent.OUTPUT_BUFFER_EMPTY)
-                output.write("Test".getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
-   public void setCommand(byte[] b){
-       bytes=b;
-   }
+
 }

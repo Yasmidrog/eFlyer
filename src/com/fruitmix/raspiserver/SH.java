@@ -25,6 +25,7 @@ public class SH extends ServerHandler {
         JCFG conf = new JCFG();
         JBinD b = new JBinD();
         try {
+            
             conf.add(new Parameter("Long", j.longitude));
             conf.add(new Parameter("Lat", j.latitude));
             conf.add(new Parameter("Height", j.height+":random"+new Random().nextInt(100)));
