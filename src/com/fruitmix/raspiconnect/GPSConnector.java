@@ -24,10 +24,7 @@ public class GPSConnector extends Connector {
         try {
                 String gps= input.readLine();
                 if(gps.contains("$GPGLL")){
-                   Scanner s=new Scanner(gps);
-
-
-                            System.out.println( s.next()+ s.next()+ s.next());
+                   
                 }
         } catch (Exception e) {
             e.printStackTrace();

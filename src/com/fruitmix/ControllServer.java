@@ -77,9 +77,9 @@ public class ControllServer{
         close.setBounds(1,71,90,25);
         result.setBounds(95,1,370,130);
         ardport.setBounds(1, 107, 93, 25);
-        ardport.setText("/dev/ttyACM0");
+        ardport.setText("/dev/ttyACM1");
         gpsport.setBounds(1, 1, 93, 25);
-        gpsport.setText("/dev/ttyACM1");
+        gpsport.setText("/dev/ttyACM0");
         open.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
