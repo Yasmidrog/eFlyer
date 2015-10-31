@@ -16,9 +16,6 @@ public class ArduinoConnector extends Connector {
 
     protected byte[] bytes=new byte[]{};
 
-    protected BufferedReader input;
-
-    protected OutputStream output;
     /**
      * Milliseconds to block while waiting for port open
      */
