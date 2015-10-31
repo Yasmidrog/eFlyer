@@ -1,9 +1,10 @@
 package com.fruitmix.raspiconnect;
 
 import gnu.io.SerialPortEvent;
-import org.sparkle.jcfg.JCFG;
 
-import java.util.Scanner;
+import org.sparkle.jcfg.JCFG;
+import org.sparkle.jcfg.Writer;
+
 
 /**
  * Created by yasmidrog on 31.10.15.
@@ -19,8 +20,10 @@ public class GPSConnector extends Connector {
                     double n = Double.parseDouble(need[1])/100, e = Double.parseDouble(need[3])/100,
                             a = Double.parseDouble(need[5])/1000;
                     String.format("%.2f",1.12);
-                    String o = round(n,2) + "N "+ round(e,2)+"E"+ "\n" + "Altitude:"+round(a,2);
-                    System.out.print(o);
+                    gpsData.set("Latitude", round(n,2) + "N");
+                    gpsData.set("Longitude",  round(e,2)+"E");
+                    gpsData.set("Altitude",  round(a,2));
+                    System.out.print(Writer.writeToString(gpsData));
                 }
         } catch (Exception e) {
             e.printStackTrace();
