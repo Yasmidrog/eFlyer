@@ -1,5 +1,6 @@
 package com.fruitmix.raspiserver;
 import com.fruitmix.ControllServer;
+import com.fruitmix.raspiconnect.GPSConnector;
 import org.sparkle.janette.server.ServerHandler;
 import org.sparkle.jbind.JBinD;
 import org.iu.gps.*;
@@ -22,14 +23,9 @@ public class SH extends ServerHandler {
         ControllServer.raspicont.addCfg(s);
     }
     public JBinD out(){
-        JCFG conf = new JCFG();
         JBinD b = new JBinD();
         try {
-            
-            conf.add(new Parameter("Long", j.longitude));
-            conf.add(new Parameter("Lat", j.latitude));
-            conf.add(new Parameter("Height", j.height+":random"+new Random().nextInt(100)));
-            b.addPart(new Part("GPS", conf));
+            b.addPart(new Part("GPS", GPSConnector.getGpsData()));
         }catch (Exception e){
             e.printStackTrace();
         }

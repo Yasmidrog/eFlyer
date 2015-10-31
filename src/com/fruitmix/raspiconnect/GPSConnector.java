@@ -1,16 +1,14 @@
 package com.fruitmix.raspiconnect;
-
 import gnu.io.SerialPortEvent;
-
 import org.sparkle.jcfg.JCFG;
-import org.sparkle.jcfg.Writer;
+
 
 
 /**
  * Created by yasmidrog on 31.10.15.
  */
 public class GPSConnector extends Connector {
-    public static JCFG gpsData=new JCFG();
+    private static JCFG gpsData=new JCFG();
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         try {
@@ -23,7 +21,6 @@ public class GPSConnector extends Connector {
                     gpsData.set("Latitude", round(n,2) + "N");
                     gpsData.set("Longitude",  round(e,2)+"E");
                     gpsData.set("Altitude",  round(a,2));
-                    System.out.print(Writer.writeToString(gpsData));
                 }
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,5 +33,8 @@ public class GPSConnector extends Connector {
             pow *= 10;
         double tmp = number * pow;
         return (float) (int) ((tmp - (int) tmp) >= 0.5f ? tmp + 1 : tmp) / pow;
+    }
+    public static JCFG getGpsData() {
+        return gpsData;
     }
 }
