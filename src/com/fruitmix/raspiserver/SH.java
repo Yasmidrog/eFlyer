@@ -27,7 +27,7 @@ public class SH extends ServerHandler {
         try {
             conf.add(new Parameter("Long", j.longitude));
             conf.add(new Parameter("Lat", j.latitude));
-            conf.add(new Parameter("Height", j.height));
+            conf.add(new Parameter("Height", j.height+":random"+new Random().nextInt(100)));
             b.addPart(new Part("GPS", conf));
         }catch (Exception e){
             e.printStackTrace();
