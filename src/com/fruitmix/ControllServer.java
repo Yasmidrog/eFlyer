@@ -2,7 +2,6 @@ package com.fruitmix;
 
 import com.fruitmix.raspiconnect.RaspiController;
 import com.fruitmix.raspiserver.SH;
-import org.iu.gps.GPSInfo;
 import org.sparkle.janette.server.ServerConnection;
 
 import javax.swing.*;
@@ -24,7 +23,7 @@ public class ControllServer{
     static JButton open=new JButton("Open"), close=new JButton("Close");
     public static JLabel l=new JLabel();
     public static JTextArea result=new JTextArea();
-    public static JTextField port=new JTextField();
+    public static JTextField ardport =new JTextField(),gpsport=new JTextField();
     public static void main(String[] args) {
         try {
             setNatives();
@@ -40,7 +39,7 @@ public class ControllServer{
       started=true;
       try {
           server.startServer();
-          raspicont = new RaspiController(port.getText());
+          raspicont = new RaspiController(ardport.getText(),gpsport.getText());
       }catch (Exception e) {
          e.printStackTrace();
       }
@@ -77,8 +76,10 @@ public class ControllServer{
         open.setBounds(1,40,90,25);
         close.setBounds(1,71,90,25);
         result.setBounds(95,1,370,130);
-        port.setBounds(1,107,93,25);
-        port.setText("/dev/ttyACM0");
+        ardport.setBounds(1, 107, 93, 25);
+        ardport.setText("/dev/ttyACM0");
+        gpsport.setBounds(1, 1, 93, 25);
+        gpsport.setText("/dev/ttyACM1");
         open.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -103,7 +104,8 @@ public class ControllServer{
         frame.add(close);
         frame.add(open);
         frame.add(result);
-        frame.add(port);
+        frame.add(ardport);
+        frame.add(gpsport);
         frame.add(l);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);

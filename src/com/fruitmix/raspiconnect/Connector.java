@@ -16,11 +16,11 @@ public class Connector implements SerialPortEventListener {
 
     protected OutputStream output;
     /**
-     * Milliseconds to block while waiting for port open
+     * Milliseconds to block while waiting for ardport open
      */
     protected static int TIME_OUT;
     /**
-     * Default bits per second for COM port.
+     * Default bits per second for COM ardport.
      */
     private static  int DATA_RATE;
     public void initialize(String port) {

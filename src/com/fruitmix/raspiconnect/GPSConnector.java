@@ -1,18 +1,11 @@
 package com.fruitmix.raspiconnect;
 
-import gnu.io.CommPortIdentifier;
-import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 
 /**
  * Created by yasmidrog on 31.10.15.
  */
-public class ArduinoConnector extends Connector {
-    protected byte[] bytes=new byte[]{};
+public class GPSConnector extends Connector {
 
     /**
      * Milliseconds to block while waiting for ardport open
@@ -25,19 +18,13 @@ public class ArduinoConnector extends Connector {
 
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-
         System.out.println("----");
         try {
             if(oEvent.getEventType()==SerialPortEvent.DATA_AVAILABLE)
                 System.out.println(input.readLine());
-            if(oEvent.getEventType()==SerialPortEvent.OUTPUT_BUFFER_EMPTY)
-                output.write("Test".getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-    }
-    public void setCommand(byte[] b){
-        bytes=b;
     }
 }

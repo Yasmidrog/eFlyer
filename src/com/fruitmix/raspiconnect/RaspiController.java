@@ -16,7 +16,8 @@ import java.awt.event.ActionListener;
 public class RaspiController {
 
     private  Queue<JCFG> commands;
-    private  ArduinoConnector con;
+    private  ArduinoConnector arduinoConn;
+    private  GPSConnector gpsConn;
     public  void addCfg(JCFG conf){
         commands.enqueue(conf);
     }
@@ -27,7 +28,7 @@ public class RaspiController {
                 if(!commands.isEmpty()) {
                     JCFG cfg = commands.dequeue();
                     ControllServer.result.setText(Writer.writeToString(cfg));
-                    con.setCommand(createCommand(cfg));
+                    arduinoConn.setCommand(createCommand(cfg));
                 }
             }catch (Exception ex){
                 ex.printStackTrace();
@@ -35,14 +36,16 @@ public class RaspiController {
         }
     });
     private Thread conThread;
-    public RaspiController(final String port){
+    public RaspiController(final String arduinoport,final String gpsport){
         try {
             commands = new Queue<JCFG>();
             conThread=new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    con=new ArduinoConnector();
-                    con.initialize(port);
+                    arduinoConn =new ArduinoConnector();
+                    arduinoConn.initialize(arduinoport);
+                    gpsConn=new GPSConnector();
+                    gpsConn.initialize(gpsport);
                 }
             });
             conThread.start();
@@ -53,7 +56,7 @@ public class RaspiController {
     }
     public  void stopControl(){
         control.stop();
-        con.close();
+        arduinoConn.close();
         conThread.stop();
     }
     private byte[] createCommand(JCFG cfg){
