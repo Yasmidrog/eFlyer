@@ -10,17 +10,18 @@ import java.util.Scanner;
  */
 public class GPSConnector extends Connector {
     public static JCFG gpsData=new JCFG();
-
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         try {
                 String gps= input.readLine();
                 if(gps.contains("$GPGLL")){
-
+                    String[] need = gps.split(",");
+                    double n = Double.parseDouble(need[1])/100, e = Double.parseDouble(need[3])/100, a = Double.parseDouble(need[5])/1000;
+                    String o = n + "N "+ e+"E"+ "\n" + "Altitude:"+a;
+                    System.out.print(o);
                 }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
