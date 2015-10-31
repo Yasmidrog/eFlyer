@@ -20,11 +20,16 @@ public class SH extends ServerHandler {
         ControllServer.raspicont.addCfg(s);
     }
     public JBinD out(){
-        JCFG conf=new JCFG();
-        conf.add(new Parameter("Long:",j.longitude));
-        conf.add(new Parameter("Lat:",j.latitude));
-        conf.add(new Parameter("Height:",j.height));
-
-        return new JBinD(new Part("GPS",conf));
+        JCFG conf = new JCFG();
+        JBinD b = new JBinD();
+        try {
+            conf.add(new Parameter("Long", j.longitude));
+            conf.add(new Parameter("Lat", j.latitude));
+            conf.add(new Parameter("Height", j.height));
+            b.addPart(new Part("GPS", conf));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return b;
     }
 }
