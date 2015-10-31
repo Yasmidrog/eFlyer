@@ -18,11 +18,13 @@ public class Connector implements SerialPortEventListener {
     /**
      * Milliseconds to block while waiting for ardport open
      */
-    protected static int TIME_OUT;
+    protected static int TIME_OUT = 2000;
     /**
      * Default bits per second for COM ardport.
      */
-    private static  int DATA_RATE;
+
+    protected static int DATA_RATE = 9600;
+
     public void initialize(String port) {
 
         System.setProperty("gnu.io.rxtx.SerialPorts", port);

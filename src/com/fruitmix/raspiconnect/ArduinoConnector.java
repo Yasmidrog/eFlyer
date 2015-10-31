@@ -14,15 +14,6 @@ import java.io.OutputStream;
 public class ArduinoConnector extends Connector {
     protected byte[] bytes=new byte[]{};
 
-    /**
-     * Milliseconds to block while waiting for ardport open
-     */
-    private static final int TIME_OUT = 2000;
-    /**
-     * Default bits per second for COM ardport.
-     */
-    private static final int DATA_RATE = 9600;
-
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
 
