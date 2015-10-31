@@ -1,12 +1,15 @@
 package com.fruitmix.raspiconnect;
 
 import gnu.io.SerialPortEvent;
+import org.sparkle.jcfg.JCFG;
+
+import java.util.Scanner;
 
 /**
  * Created by yasmidrog on 31.10.15.
  */
 public class GPSConnector extends Connector {
-
+    public static JCFG gpsData=new JCFG();
     /**
      * Milliseconds to block while waiting for ardport open
      */
@@ -20,8 +23,14 @@ public class GPSConnector extends Connector {
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         System.out.println("----");
         try {
-            if(oEvent.getEventType()==SerialPortEvent.DATA_AVAILABLE)
-                System.out.println(input.readLine());
+                String gps= input.readLine();
+                if(gps.contains("$GPGLL")){
+                    Scanner s=new Scanner(gps);
+                    for(int i=0;i<3;i++){
+                        System.out.print(s.nextFloat()+" ");
+                    }
+                    System.out.println();
+                }
         } catch (Exception e) {
             e.printStackTrace();
         }
