@@ -21,11 +21,13 @@ public class GPSConnector extends Connector {
 
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-        System.out.println("----");
         try {
                 String gps= input.readLine();
                 if(gps.contains("$GPGLL")){
-                    System.out.println(gps);
+                   Scanner s=new Scanner(gps);
+
+
+                            System.out.println( s.next()+ s.next()+ s.next());
                 }
         } catch (Exception e) {
             e.printStackTrace();
