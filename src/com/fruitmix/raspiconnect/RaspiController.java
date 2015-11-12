@@ -25,7 +25,7 @@ public class RaspiController {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                if(!commands.isEmpty()) {
+                if(!commands.isEmpty()&&arduinoConn.hasCompletedLastCommand()) {
                     JCFG cfg = commands.dequeue();
                     ControllServer.result.setText(Writer.writeToString(cfg));
                     arduinoConn.setCommand(createCommand(cfg));

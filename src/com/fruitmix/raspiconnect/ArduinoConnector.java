@@ -13,14 +13,14 @@ import java.io.OutputStream;
  */
 public class ArduinoConnector extends Connector {
     protected byte[] bytes=new byte[]{};
-
+    protected boolean completed=true;
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
-
-        System.out.println("----");
         try {
-            if(oEvent.getEventType()==SerialPortEvent.DATA_AVAILABLE)
-                System.out.println(input.readLine());
+            if(oEvent.getEventType()==SerialPortEvent.DATA_AVAILABLE) {
+                if(input.readLine().equals("completed"));
+                  completed=true;
+            }
             if(oEvent.getEventType()==SerialPortEvent.OUTPUT_BUFFER_EMPTY)
                 output.write("Test".getBytes());
         } catch (Exception e) {
@@ -30,5 +30,9 @@ public class ArduinoConnector extends Connector {
     }
     public void setCommand(byte[] b){
         bytes=b;
+        completed=false;
+    }
+    public boolean hasCompletedLastCommand(){
+        return completed;
     }
 }
