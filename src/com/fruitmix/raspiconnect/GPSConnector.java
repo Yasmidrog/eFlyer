@@ -8,10 +8,11 @@ import org.sparkle.jcfg.JCFG;
  * Created by yasmidrog on 31.10.15.
  */
 public class GPSConnector extends Connector {
-    private static JCFG gpsData=new JCFG();
+    private static JCFG gpsData=new JCFG();//значения gps
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
         try {
+            //из потока текста с GPS-приемника вынимаем нужную строку.
                 String gps= input.readLine();
                 if(gps.contains("$GPGLL")){
                     String[] need = gps.split(",");

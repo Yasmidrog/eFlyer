@@ -15,20 +15,21 @@ import java.awt.event.ActionListener;
  */
 public class RaspiController {
 
-    private  Queue<JCFG> commands;
+    private  Queue<JCFG> accelData;//очередь данных с телефона
     private  ArduinoConnector arduinoConn;
     private  GPSConnector gpsConn;
     public  void addCfg(JCFG conf){
-        commands.enqueue(conf);
+        accelData.enqueue(conf);
     }
     private   Timer control=new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                if(!commands.isEmpty()&&arduinoConn.hasCompletedLastCommand()) {
-                    JCFG cfg = commands.dequeue();
+                if(!accelData.isEmpty()&&arduinoConn.hasCompletedLastCommand()) {
+                    JCFG cfg = accelData.dequeue();
                     ControllServer.result.setText(Writer.writeToString(cfg));
                     arduinoConn.setCommand(createCommand(cfg));
+                    //проверить очередь и сфоомировать новую команду для Ардуино
                 }
             }catch (Exception ex){
                 ex.printStackTrace();
@@ -38,7 +39,7 @@ public class RaspiController {
     private Thread conThread;
     public RaspiController(final String arduinoport,final String gpsport){
         try {
-            commands = new Queue<JCFG>();
+            accelData = new Queue<JCFG>();
             conThread=new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -60,7 +61,7 @@ public class RaspiController {
         conThread.stop();
     }
     private byte[] createCommand(JCFG cfg){
-        //trying to create command to send to a raspi
+        //сделать команду на основе данных акселлерометра и полслать на Ардуино
         return "Test".getBytes();
     }
 }

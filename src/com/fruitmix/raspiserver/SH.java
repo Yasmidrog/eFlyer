@@ -21,8 +21,10 @@ public class SH extends ServerHandler {
     public void in(JBinD data){
         JCFG s= data.getPart("sensors").getDataAsJCFG();
         ControllServer.raspicont.addCfg(s);
+        //добавить в очередь данных акселлерометра, которые будут обрабатываться
     }
     public JBinD out(){
+        //послать GPS
         JBinD b = new JBinD();
         try {
             b.addPart(new Part("GPS", GPSConnector.getGpsData()));

@@ -7,7 +7,9 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
-
+/**
+ * класс для обмена данными с серийными портами
+ */
 
 public class Connector implements SerialPortEventListener {
     SerialPort serialPort;
@@ -55,6 +57,7 @@ public class Connector implements SerialPortEventListener {
 
             serialPort.addEventListener(this);
             serialPort.notifyOnDataAvailable(true);
+            //установка всех параметров порта
         } catch (Exception e) {
             e.printStackTrace();
         }

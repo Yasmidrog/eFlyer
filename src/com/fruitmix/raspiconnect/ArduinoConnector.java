@@ -12,7 +12,7 @@ import java.io.OutputStream;
  * Created by yasmidrog on 31.10.15.
  */
 public class ArduinoConnector extends Connector {
-    protected byte[] bytes=new byte[]{};
+    protected byte[] bytes=new byte[]{};//актуальный поток данных для отправки на Ардуино
     protected boolean completed=true;
     @Override
     public synchronized void serialEvent(SerialPortEvent oEvent) {
